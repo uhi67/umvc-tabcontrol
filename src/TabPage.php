@@ -5,6 +5,7 @@ use uhi67\umvc\Component;
 
 class TabPage extends Component
 {
+    public ?string $id = null;
     public string $label;
     public bool $enabled = false;
     public bool $visible = true;
@@ -19,4 +20,5 @@ class TabPage extends Component
     public string|null $icon = null;
     /** @var string|callable|null $content */
     public $content = null;
+    public ?string $target = null;
 }

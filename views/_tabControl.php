@@ -11,20 +11,20 @@ use uhi67\umvc\Html;
 
 ?>
 <div id="<?= $tabControl->id ?>" class="tab-control" data-index="<?= $tabControl->index ?>">
-<ul class="nav nav-tabs" id="<?= $tabControl->id ?>">
+    <ul class="nav nav-tabs" id="<?= $tabControl->id ?>">
+        <?php
+        foreach ($tabControl->items as $index => $page) {
+            echo $this->renderPartial(TabControl::viewName('_tabItem'), ['item' => $page, 'index' => $index]);
+        } ?>
+    </ul>
     <?php
     foreach ($tabControl->items as $index => $page) {
-        echo $this->renderPartial('widgets/_tabItem', ['item' => $page, 'index' => $index]);
+        $classes = ['tab-page'];
+        if(!$page->active) $classes[] = 'hidden';
+        echo Html::tag(
+            'div',
+            $this->renderPartial(TabControl::viewName('_tabPage'), ['item' => $page, 'index' => $index]),
+            ['id' => $page->id, 'class' => implode(' ', $classes)]
+        );
     } ?>
-</ul>
-<?php
-foreach ($tabControl->items as $index => $page) {
-    $classes = ['tab-page'];
-    if(!$page->active) $classes[] = 'hidden';
-    echo Html::tag(
-        'div',
-        $this->renderPartial('widgets/_tabPage', ['item' => $page, 'index' => $index]),
-        ['id' => 'tabPage_' . $index, 'class' => implode(' ', $classes)]
-    );
-} ?>
 </div>

@@ -16,5 +16,5 @@ $class = implode(' ', $classes);
 $aria = $item->enabled ? ($item->active ? 'aria-current="page"' : '') : 'aria-disabled="true"';
 ?>
 <li class="nav-item">
-    <a class="nav-link <?= $class ?>" <?= $aria ?> href="<?= $item->url??'#' ?>" data-index="<?= $index ?>"><?= $item->label ?></a>
+    <a class="nav-link <?= $class ?>" <?= $aria ?> href="<?= $item->url??'#' ?>" data-index="<?= $index ?>" data-target="<?= $item->target ?>"><?= $item->label ?></a>
 </li>

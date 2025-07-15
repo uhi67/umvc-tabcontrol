@@ -15,7 +15,7 @@ class TabControl extends Component
     /** @var string|null $index -- selected tab */
     public ?string $index = null;
     public Controller $controller;
-    public string $viewName = 'widgets/_tabControl';
+    public string $viewName = '';
     public bool $defaultEnabled = true;
     public string $defaultIndex = '';
 
@@ -34,6 +34,10 @@ class TabControl extends Component
         return $tabControl->render();
     }
 
+    public static function viewName(string $name): string {
+        return 'uhi67/umvc-tabcontrol/views/' . $name;
+    }
+
     /**
      * @throws Exception
      */
@@ -46,8 +50,11 @@ class TabControl extends Component
             $item['enabled'] = !!($item['enabled'] ?? $this->defaultEnabled);
             $tabPage = new TabPage($item);
             if($this->index == $index) $tabPage->active = true;
+            if(!$tabPage->id) $tabPage->id = $this->id.'_tabPage_'.$index;
+            if(!$tabPage->url && $tabPage->target === null) $tabPage->target = '#'.$tabPage->id;
             return $tabPage;
         }, array_values($this->items), array_keys($this->items));
+        if($this->viewName === '') $this->viewName = static::viewName('_tabControl');
     }
 
     /**
